@@ -91,9 +91,6 @@ const Footer = () => {
             <div className="text-left relative">
               <div className="flex items-center gap-2 mb-2">
                 <h4 className="font-semibold text-darkGray">LogicoreX Academy Resources</h4>
-                <span className="bg-customdarkblue text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow animate-pulse">
-                  Coming Soon
-                </span>
               </div>
 
               <ul className="space-y-1 opacity-80 pointer-events-none">
