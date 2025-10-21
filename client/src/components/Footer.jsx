@@ -39,21 +39,6 @@ const Footer = () => {
                 <FaWhatsapp />
               </a>
             </div>
-
-            <div>
-              <label htmlFor="language" className="sr-only">
-                Language
-              </label>
-              <select
-                id="language"
-                className="border text-sm px-3 py-2 rounded bg-white max-w-[160px]"
-              >
-                <option>English</option>
-                <option>French</option>
-                <option>Swahili</option>
-              </select>
-            </div>
-
             <div className="text-xs space-y-1">
               <a href="#" className="block hover:text-customdarkblue text-left">
                 The Spark Behind Innovation
