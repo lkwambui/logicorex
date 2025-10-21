@@ -4,7 +4,7 @@ import {
   FaInstagram,
   FaTiktok,
   FaLinkedin,
-  FaFacebookF,
+  FaGithub,
   FaWhatsapp,
 } from "react-icons/fa";
 import Logo from "../assets/logo.png";
@@ -23,17 +23,17 @@ const Footer = () => {
             />
 
             <div className="flex space-x-4 text-xl text-darkGray">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://instagram.com/lucy_kamau_designer_and_dev/" target="_blank" rel="noopener noreferrer">
                 <FaInstagram />
               </a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://tiktok.com/@lucykamau_designdev" target="_blank" rel="noopener noreferrer">
                 <FaTiktok />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://linkedin.com/in/lucy-kamau-87bb75209/" target="_blank" rel="noopener noreferrer">
                 <FaLinkedin />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                <FaFacebookF />
+              <a href="https://github.com/lkwambui" target="_blank" rel="noopener noreferrer">
+                <FaGithub />
               </a>
               <a href="https://wa.me/254799656264" target="_blank" rel="noopener noreferrer">
                 <FaWhatsapp />
