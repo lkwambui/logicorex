@@ -1,3 +1,4 @@
+// ...existing code...
 import React from "react";
 import { Link } from "react-router-dom";
 import heroImage from "../../assets/hero.jpg";
@@ -7,10 +8,15 @@ const HeroSection = () => {
     <section className="relative w-full h-screen">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
         style={{ backgroundImage: `url(${heroImage})` }}
-      >
-      </div>
+      />
+
+      {/* Overlay to add opacity (darken the image) */}
+      <div
+        className="absolute inset-0 bg-black/50 z-0 pointer-events-none"
+        aria-hidden="true"
+      />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
@@ -28,17 +34,15 @@ const HeroSection = () => {
           >
             Explore Our Services
           </Link>
-<Link
-  to="/academy"
-  className="relative bg-white hover:bg-gray-100 text-[#0098FF] px-8 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
->
-  Join the Academy
-  <span className="absolute -top-2 -right-3 bg-customdarkblue text-[10px] text-gray-50 font-bold px-2 py-0.5 rounded-full shadow-md rotate-[-6deg] animate-pulse">
-    Coming Soon
-  </span>
-</Link>
-
-
+          <Link
+            to="/academy"
+            className="relative bg-white hover:bg-gray-100 text-[#0098FF] px-8 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
+          >
+            Join the Academy
+            <span className="absolute -top-2 -right-3 bg-customdarkblue text-[10px] text-gray-50 font-bold px-2 py-0.5 rounded-full shadow-md rotate-[-6deg] animate-pulse">
+              Coming Soon
+            </span>
+          </Link>
         </div>
       </div>
     </section>

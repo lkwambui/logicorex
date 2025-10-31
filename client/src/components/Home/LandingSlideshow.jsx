@@ -4,6 +4,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import webDesignImage from "../../assets/consultation_and_services/webdesign_and_development.jpg";
 import uiuxdesignImage from "../../assets/consultation_and_services/ui_ux_design.jpg";
 import graphicsdesignImage from "../../assets/consultation_and_services/graphics_design.jpg";
+import mobileAppDevelopmentImage from "../../assets/consultation_and_services/mobile-app-development.jpg";
+import TechConsultationImage from "../../assets/consultation_and_services/tech-consultation.jpg";
 
 const slides = [
   {
@@ -37,7 +39,7 @@ const slides = [
     subtitle: "Building scalable, intuitive mobile solutions.",
     description:
       "We develop high-performing Android and iOS apps using modern frameworks. From concept to deployment, we ensure your app is user-friendly, secure, and aligned with your business strategy.",
-    image: webDesignImage,
+    image: mobileAppDevelopmentImage,
   },
   {
     id: 5,
@@ -45,7 +47,7 @@ const slides = [
     subtitle: "Guiding your business through digital transformation.",
     description:
       "Our team provides expert advice on digital strategy, process automation, and software integration. We help organizations innovate and scale by aligning technology with long-term goals.",
-    image: uiuxdesignImage,
+    image: TechConsultationImage,
   },
 ];
 
