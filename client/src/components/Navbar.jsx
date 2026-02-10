@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronDown,
   GraduationCap,
@@ -8,14 +8,37 @@ import {
   User,
   X,
   InfoIcon,
+  LogOut,
 } from "lucide-react";
 import logo from "../assets/logo.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isAcademyOpen, setIsAcademyOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userData");
+    setUser(null);
+    navigate("/");
+  };
+
+  const closeDropdowns = () => {
+    setIsServicesOpen(false);
+    setIsAcademyOpen(false);
+  };
 
   return (
     <nav className="relative z-50 bg-white border-b border-lightGray shadow-sm">
@@ -59,26 +82,26 @@ const Navbar = () => {
             </button>
             {isServicesOpen && (
               <div className="absolute bg-white shadow-md mt-2 py-2 w-56 z-10 border border-lightGray rounded">
-                <Link to="/services/web" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/services/web" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   Web Design & Development
                 </Link>
-                <Link to="/services/uiux" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/services/uiux" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   UI/UX Design
                 </Link>
-                <Link to="/services/graphics" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/services/graphics" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   Graphics Design
                 </Link>
-                <Link to="/services/mobile" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/services/mobile" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   Mobile App Development
                 </Link>
-                <Link to="/services/consultancy" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/services/consultancy" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   Tech Consultancy
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Academy Dropdown with Coming Soon Badge */}
+          {/* Academy Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsAcademyOpen(!isAcademyOpen)}
@@ -86,44 +109,66 @@ const Navbar = () => {
             >
               <GraduationCap className="w-4 h-4" />
               <span>LogicoreX Academy</span>
-              <span className="ml-2 text-xs bg-customlightblue text-white px-2 py-0.5 rounded-full font-semibold">
-                Coming Soon
-              </span>
               <ChevronDown className="w-4 h-4" />
             </button>
             {isAcademyOpen && (
               <div className="absolute bg-white shadow-md mt-2 py-2 w-56 z-10 border border-lightGray rounded">
-                <Link to="/academy/design-dev" className="block px-4 py-2 hover:bg-customlightblue/20">
-                  Design & Development
+                <Link to="/academy" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20 font-semibold text-customdarkblue">
+                  All Courses
                 </Link>
-                <Link to="/academy/uiux" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <div className="border-t border-gray-200 my-2"></div>
+                <Link to="/academy?category=web-design" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
+                  Web Design & Development
+                </Link>
+                <Link to="/academy?category=uiux" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   UI/UX Design
                 </Link>
-                <Link to="/academy/web" className="block px-4 py-2 hover:bg-customlightblue/20">
-                  Web Design
-                </Link>
-                <Link to="/academy/frontend" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/academy?category=frontend" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   Frontend Web Development
                 </Link>
-                <Link to="/academy/react" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/academy?category=react" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   React for Beginners
                 </Link>
-                <Link to="/academy/graphics" className="block px-4 py-2 hover:bg-customlightblue/20">
+                <Link to="/academy?category=graphics" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
+                  Graphics Design
+                </Link>
+                <Link to="/academy?category=full-stack" onClick={closeDropdowns} className="block px-4 py-2 hover:bg-customlightblue/20">
                   Graphics Design
                 </Link>
               </div>
             )}
           </div>
 
-          <Link to="/login" className="text-customdarkblue font-medium hover:underline">
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="bg-customdarkblue text-white px-4 py-1.5 rounded hover:bg-customlightblue transition"
-          >
-            Signup
-          </Link>
+          {user ? (
+            <div className="flex items-center space-x-4">
+              <Link 
+                to="/profile" 
+                className="flex items-center space-x-1 text-customdarkblue hover:text-opacity-80"
+              >
+                <User className="w-4 h-4" />
+                <span>{user.name}</span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-1 bg-red-500 text-white px-4 py-1.5 rounded hover:bg-red-600 transition"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link to="/login" className="text-customdarkblue font-medium hover:underline">
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-customdarkblue text-white px-4 py-1.5 rounded hover:bg-customlightblue transition"
+              >
+                Signup
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Hamburger for Mobile */}
@@ -154,11 +199,11 @@ const Navbar = () => {
             </button>
             {isServicesOpen && (
               <div className="ml-4 space-y-1">
-                <Link to="/services/web" className="block py-1 hover:text-customdarkblue">Web Design & Development</Link>
-                <Link to="/services/uiux" className="block py-1 hover:text-customdarkblue">UI/UX Design</Link>
-                <Link to="/services/graphics" className="block py-1 hover:text-customdarkblue">Graphics Design</Link>
-                <Link to="/services/mobile" className="block py-1 hover:text-customdarkblue">Mobile App Development</Link>
-                <Link to="/services/consultancy" className="block py-1 hover:text-customdarkblue">Tech Consultancy</Link>
+                <Link to="/services/web" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Web Design & Development</Link>
+                <Link to="/services/uiux" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">UI/UX Design</Link>
+                <Link to="/services/graphics" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Graphics Design</Link>
+                <Link to="/services/mobile" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Mobile App Development</Link>
+                <Link to="/services/consultancy" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Tech Consultancy</Link>
               </div>
             )}
           </div>
@@ -169,35 +214,48 @@ const Navbar = () => {
               onClick={() => setIsAcademyOpen(!isAcademyOpen)}
               className="flex items-center justify-between w-full py-1 hover:text-customdarkblue"
             >
-              <span className="flex items-center">
-                LogicoreX Academy
-                <span className="ml-2 text-xs bg-customlightblue text-white px-2 py-0.5 rounded-full font-semibold">
-                  Coming Soon
-                </span>
-              </span>
+              <span>LogicoreX Academy</span>
               <ChevronDown className="w-4 h-4" />
             </button>
             {isAcademyOpen && (
               <div className="ml-4 space-y-1">
-                <Link to="/academy/design-dev" className="block py-1 hover:text-customdarkblue">Design & Development</Link>
-                <Link to="/academy/uiux" className="block py-1 hover:text-customdarkblue">UI/UX Design</Link>
-                <Link to="/academy/web" className="block py-1 hover:text-customdarkblue">Web Design</Link>
-                <Link to="/academy/frontend" className="block py-1 hover:text-customdarkblue">Frontend Web Development</Link>
-                <Link to="/academy/react" className="block py-1 hover:text-customdarkblue">React for Beginners</Link>
-                <Link to="/academy/graphics" className="block py-1 hover:text-customdarkblue">Graphics Design</Link>
+                <Link to="/academy" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue font-semibold">All Courses</Link>
+                <Link to="/academy?category=web-design" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Web Design & Development</Link>
+                <Link to="/academy?category=uiux" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">UI/UX Design</Link>
+                <Link to="/academy?category=frontend" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Frontend Web Development</Link>
+                <Link to="/academy?category=react" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">React for Beginners</Link>
+                <Link to="/academy?category=graphics" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Graphics Design</Link>
+                <Link to="/academy?category=full-stack" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Full Stack Web Development</Link>
               </div>
-            )}
+            )}}
           </div>
 
-          <Link to="/login" className="block py-1 text-customdarkblue font-medium hover:underline">
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="block bg-customdarkblue text-white px-4 py-1.5 rounded hover:bg-customlightblue transition"
-          >
-            Signup
-          </Link>
+          {user ? (
+            <div className="space-y-2">
+              <div className="py-1 text-customdarkblue font-medium">
+                Welcome, {user.name}
+              </div>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center justify-center space-x-1 bg-red-500 text-white px-4 py-1.5 rounded hover:bg-red-600 transition"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link to="/login" className="block py-1 text-customdarkblue font-medium hover:underline">
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="block bg-customdarkblue text-white px-4 py-1.5 rounded hover:bg-customlightblue transition text-center"
+              >
+                Signup
+              </Link>
+            </>
+          )}
         </div>
       )}
     </nav>

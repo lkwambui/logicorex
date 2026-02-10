@@ -23,26 +23,51 @@ const Footer = () => {
             />
 
             <div className="flex space-x-4 text-xl text-darkGray">
-              <a href="https://instagram.com/lucy_kamau_designer_and_dev/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://instagram.com/lucy_kamau_designer_and_dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LogicoreX on Instagram"
+              >
                 <FaInstagram />
               </a>
-              <a href="https://tiktok.com/@lucykamau_designdev" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://tiktok.com/@lucykamau_designdev"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LogicoreX on TikTok"
+              >
                 <FaTiktok />
               </a>
-              <a href="https://linkedin.com/in/lucy-kamau-87bb75209/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://linkedin.com/in/lucy-kamau-87bb75209/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LogicoreX on LinkedIn"
+              >
                 <FaLinkedin />
               </a>
-              <a href="https://github.com/lkwambui" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/lkwambui"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LogicoreX on GitHub"
+              >
                 <FaGithub />
               </a>
-              <a href="https://wa.me/254799656264" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://wa.me/254799656264"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat with LogicoreX on WhatsApp"
+              >
                 <FaWhatsapp />
               </a>
             </div>
             <div className="text-xs space-y-1">
-              <a href="#" className="block hover:text-customdarkblue text-left">
+              <Link to="/about" className="block hover:text-customdarkblue text-left">
                 The Spark Behind Innovation
-              </a>
+              </Link>
               <p>© 2025 Logicorex, Ltd.</p>
             </div>
           </div>
@@ -92,12 +117,12 @@ const Footer = () => {
             <div className="text-left">
               <h4 className="font-semibold mb-2 text-darkGray">Logicorex for</h4>
               <ul className="space-y-1">
-                <li><Link to="#" className="block hover:text-customdarkblue">Students</Link></li>
-                <li><Link to="#" className="block hover:text-customdarkblue">Business</Link></li>
-                <li><Link to="#" className="block hover:text-customdarkblue">Partnerships</Link></li>
+                <li><Link to="/contact" className="block hover:text-customdarkblue">Students</Link></li>
+                <li><Link to="/services/web" className="block hover:text-customdarkblue">Business</Link></li>
+                <li><Link to="/contact" className="block hover:text-customdarkblue">Partnerships</Link></li>
               </ul>
               <div className="mt-4 text-customdarkblue font-medium">
-                <Link to="/academy" className="hover:underline">Explore more →</Link>
+                <Link to="/contact" className="hover:underline">Explore more →</Link>
               </div>
             </div>
           </div>

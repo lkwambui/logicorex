@@ -12,42 +12,50 @@ const services = [
     title: "Web Design & Development",
     description: "Professional websites with responsive and modern design.",
     icon: <FaLaptopCode className="text-customdarkblue text-4xl mb-4" />,
+    link: "/services/web",
   },
   {
     title: "UI/UX Design",
     description: "User-focused interfaces for seamless digital experiences.",
     icon: <FaPencilRuler className="text-customdarkblue text-4xl mb-4" />,
+    link: "/services/uiux",
   },
   {
     title: "Graphics Design",
     description: "Creative visuals and branding assets tailored to your needs.",
     icon: <FaPaintBrush className="text-customdarkblue text-4xl mb-4" />,
+    link: "/services/graphics",
   },
   {
     title: "Mobile App Development",
     description: "Cross-platform apps built for performance and usability.",
     icon: <FaMobileAlt className="text-customdarkblue text-4xl mb-4" />,
+    link: "/services/mobile",
   },
   {
     title: "Tech Consultancy",
     description: "Expert advice to guide your tech strategy and growth.",
     icon: <FaLightbulb className="text-customdarkblue text-4xl mb-4" />,
+    link: "/services/consultancy",
   },
 ];
 
 export default function ServicesSection() {
   return (
-    <section className="py-16 px-4 bg-gray-100" id="services">
+    <section className="py-16 px-4 bg-gray-100" id="services" aria-label="Consultation and services">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold mb-12 text-center text-gray-800">
           Consultation & Services
         </h2>
 
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition duration-300"
+          {services.map((service) => (
+            <Link
+              key={service.title}
+              to={service.link}
+              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-customdarkblue focus-visible:ring-offset-2"
+              aria-label={`Learn more about ${service.title}`}
+              data-analytics="card:service"
             >
               <div className="flex flex-col items-center">
                 {service.icon}
@@ -58,7 +66,7 @@ export default function ServicesSection() {
                   {service.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -66,7 +74,8 @@ export default function ServicesSection() {
         <div className="mt-10 flex justify-end">
           <Link
             to="/services/web"
-            className="bg-customdarkblue text-white px-6 py-3 rounded-full font-medium hover:bg-customlightblue transition duration-300"
+            className="bg-customdarkblue text-white px-6 py-3 rounded-full font-medium hover:bg-customlightblue transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-customdarkblue focus-visible:ring-offset-2"
+            data-analytics="cta:services"
           >
             Discover More Services →
           </Link>

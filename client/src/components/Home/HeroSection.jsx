@@ -5,7 +5,10 @@ import heroImage from "../../assets/hero.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full h-screen">
+    <section
+      className="relative w-full h-screen"
+      aria-label="Hero section"
+    >
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
@@ -30,18 +33,17 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
             to="/services/web"
-            className="bg-customdarkblue hover:bg-customlightblue text-white px-8 py-3 rounded-lg font-semibold transition-all"
+            className="bg-customdarkblue hover:bg-customlightblue text-white px-8 py-3 rounded-lg font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            data-analytics="cta:hero-services"
           >
             Explore Our Services
           </Link>
           <Link
-            to="/academy"
-            className="relative bg-white hover:bg-gray-100 text-[#0098FF] px-8 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
+            to="/login"
+            className="bg-white text-[#0098FF] hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-all"
+            data-analytics="cta:hero-academy"
           >
             Join the Academy
-            <span className="absolute -top-2 -right-3 bg-customdarkblue text-[10px] text-gray-50 font-bold px-2 py-0.5 rounded-full shadow-md rotate-[-6deg] animate-pulse">
-              Coming Soon
-            </span>
           </Link>
         </div>
       </div>
