@@ -19,6 +19,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import Products from './pages/Products';
 // Services
 import Web from "./pages/services/Web";
 import Uiux from "./pages/services/Uiux";
@@ -95,6 +96,8 @@ function App() {
         <Route path="/services/graphics" element={<Graphics />} />
         <Route path="/services/mobile" element={<Mobile />} />
         <Route path="/services/consultancy" element={<Consultancy />} />
+        {/* Products (Protected) */}
+        <Route path="/products" element={<Products />} />
         {/* 404 Catch-all */}
         <Route path="*" element={<NotFound />} />
       </Routes>

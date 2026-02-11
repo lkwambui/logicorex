@@ -50,6 +50,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6 text-darkGray font-medium">
+
           <Link to="/" className="flex items-center space-x-1 hover:text-customdarkblue">
             <Home className="w-4 h-4" />
             <span>Home</span>
@@ -139,6 +140,10 @@ const Navbar = () => {
             )}
           </div>
 
+          <Link to="/products" className="flex items-center space-x-1 hover:text-customdarkblue">
+            <MenuIcon className="w-4 h-4" />
+            <span>Products</span>
+          </Link>
           {user ? (
             <div className="flex items-center space-x-4">
               <Link 
@@ -169,6 +174,7 @@ const Navbar = () => {
               </Link>
             </>
           )}
+          
         </div>
 
         {/* Hamburger for Mobile */}
@@ -183,6 +189,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2 text-darkGray font-medium">
+                    <Link to="/products" className="block py-1 hover:text-customdarkblue">Products</Link>
           <Link to="/" className="block py-1 hover:text-customdarkblue">Home</Link>
           <Link to="/about" className="block py-1 hover:text-customdarkblue">About</Link>
           <Link to="/blog" className="block py-1 hover:text-customdarkblue">Blog</Link>
@@ -227,7 +234,7 @@ const Navbar = () => {
                 <Link to="/academy?category=graphics" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Graphics Design</Link>
                 <Link to="/academy?category=full-stack" onClick={closeDropdowns} className="block py-1 hover:text-customdarkblue">Full Stack Web Development</Link>
               </div>
-            )}}
+            )}
           </div>
 
           {user ? (
@@ -256,6 +263,7 @@ const Navbar = () => {
               </Link>
             </>
           )}
+          <Link to="/products" className="block py-1 hover:text-customdarkblue">Products</Link>
         </div>
       )}
     </nav>

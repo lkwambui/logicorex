@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("blogs");
+  const [showCourseModal, setShowCourseModal] = useState(false);
+  const [courseForm, setCourseForm] = useState({ title: "", price: "", duration: "", published: false });
+  const [search, setSearch] = useState("");
   const [blogs, setBlogs] = useState([]);
   const [courses, setCourses] = useState([]);
   const [consultations, setConsultations] = useState([]);
@@ -112,6 +117,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
       <div className="bg-customdarkblue text-white px-6 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
         <button
@@ -124,7 +130,15 @@ export default function AdminDashboard() {
 
       <div className="max-w-7xl mx-auto p-6">
         <div className="flex gap-4 mb-6 border-b">
-          {["blogs", "courses", "consultations"].map((tab) => (
+          <input
+            type="text"
+            placeholder={`Search ${activeTab}`}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="px-3 py-2 border rounded mb-2 mr-4"
+            style={{ minWidth: 200 }}
+          />
+          {["blogs", "courses", "products", "users", "consultations"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -138,6 +152,23 @@ export default function AdminDashboard() {
             </button>
           ))}
         </div>
+        {activeTab === "products" && (
+          <div>
+            {/* Products CRUD UI */}
+            <React.Suspense fallback={<div>Loading...</div>}>
+              {React.createElement(require("./AdminProducts.jsx").default)}
+            </React.Suspense>
+          </div>
+        )}
+
+        {activeTab === "users" && (
+          <div>
+            {/* Users CRUD UI */}
+            <React.Suspense fallback={<div>Loading...</div>}>
+              {React.createElement(require("./AdminUsers.jsx").default)}
+            </React.Suspense>
+          </div>
+        )}
 
         {activeTab === "blogs" && (
           <div>
@@ -267,24 +298,110 @@ export default function AdminDashboard() {
 
         {activeTab === "courses" && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">Courses</h2>
-            <div className="grid gap-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold">Courses</h2>
+              <button
+                className="bg-customdarkblue text-white px-4 py-2 rounded hover:bg-opacity-90"
+                onClick={() => setShowCourseModal(true)}
+              >
+                Add Course
+              </button>
+            </div>
+                        {/* Modal for creating a new course */}
+                        {showCourseModal && (
+                          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                            <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
+                              <button
+                                className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-2xl"
+                                onClick={() => setShowCourseModal(false)}
+                              >
+                                &times;
+                              </button>
+                              <h3 className="text-xl font-bold mb-4">Create Course</h3>
+                              <form
+                                onSubmit={e => {
+                                  e.preventDefault();
+                                  setShowCourseModal(false);
+                                  setCourseForm({ title: "", price: "", duration: "", published: false });
+                                  toast.success("Course created (demo only)");
+                                }}
+                              >
+                                <input
+                                  type="text"
+                                  placeholder="Title"
+                                  className="w-full mb-3 px-3 py-2 border rounded"
+                                  value={courseForm.title}
+                                  onChange={e => setCourseForm({ ...courseForm, title: e.target.value })}
+                                  required
+                                />
+                                <input
+                                  type="number"
+                                  placeholder="Price"
+                                  className="w-full mb-3 px-3 py-2 border rounded"
+                                  value={courseForm.price}
+                                  onChange={e => setCourseForm({ ...courseForm, price: e.target.value })}
+                                  required
+                                />
+                                <input
+                                  type="text"
+                                  placeholder="Duration"
+                                  className="w-full mb-3 px-3 py-2 border rounded"
+                                  value={courseForm.duration}
+                                  onChange={e => setCourseForm({ ...courseForm, duration: e.target.value })}
+                                  required
+                                />
+                                <label className="flex items-center mb-4">
+                                  <input
+                                    type="checkbox"
+                                    checked={courseForm.published}
+                                    onChange={e => setCourseForm({ ...courseForm, published: e.target.checked })}
+                                    className="mr-2"
+                                  />
+                                  Published
+                                </label>
+                                <button
+                                  type="submit"
+                                  className="w-full bg-customdarkblue text-white py-2 rounded hover:bg-customlightblue transition"
+                                >
+                                  Create
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {courses.length > 0 ? (
-                courses.map((course) => (
+                courses
+                  .filter(course => course.title.toLowerCase().includes(search.toLowerCase()))
+                  .map((course) => (
                   <div
                     key={course._id}
-                    className="bg-white p-4 rounded-lg shadow border"
+                    className="bg-white p-6 rounded-lg shadow border flex flex-col justify-between hover:shadow-lg transition"
                   >
-                    <h3 className="font-semibold text-lg">{course.title}</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="font-semibold text-lg mb-2">{course.title}</h3>
+                    <p className="text-sm text-gray-600 mb-1">
                       Price: KES {course.price}
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 mb-1">
                       Duration: {course.duration}
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 mb-3">
                       Published: {course.published ? "Yes" : "No"}
                     </p>
+                    {/* CRUD Buttons */}
+                    <div className="flex space-x-2 mt-auto">
+                      <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">Edit</button>
+                      <button
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+                        onClick={() => {
+                          if (window.confirm("Are you sure you want to delete this course?")) {
+                            toast.success("Course deleted (demo only)");
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))
               ) : (
