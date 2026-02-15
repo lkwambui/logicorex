@@ -1,6 +1,26 @@
 import express from "express";
 import BlogPost from "../models/BlogPost.js";
 import { requireAdmin } from "../middleware/auth.js";
+import multer from "multer";
+import path from "path";
+
+// Multer setup for file uploads
+// Use import.meta.url to get __dirname equivalent in ES modules
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../uploads'));
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const base = path.basename(file.originalname, ext);
+    cb(null, base + '-' + Date.now() + ext);
+  },
+});
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -27,21 +47,50 @@ router.get("/:slug", async (req, res) => {
   res.json(post);
 });
 
-router.post("/", requireAdmin, async (req, res) => {
-  const data = req.body;
-  const slug = data.slug ? slugify(data.slug) : slugify(data.title || "");
-  const post = await BlogPost.create({ ...data, slug });
-  res.status(201).json(post);
+
+// Blog create with file upload
+router.post("/", requireAdmin, upload.single("coverImage"), async (req, res) => {
+  try {
+    const data = req.body;
+    if (req.file) {
+      data.coverImage = `/uploads/${req.file.filename}`;
+    }
+    // tags: if sent as comma string, convert to array
+    if (typeof data.tags === "string") {
+      data.tags = data.tags.split(",").map(t => t.trim()).filter(Boolean);
+    }
+    const slug = data.slug ? slugify(data.slug) : slugify(data.title || "");
+    const post = await BlogPost.create({ ...data, slug });
+    res.status(201).json(post);
+  } catch (err) {
+    console.error("Blog create error:", err);
+    res.status(500).json({ message: err.message || "Failed to create blog" });
+  }
 });
 
-router.put("/:slug", requireAdmin, async (req, res) => {
-  const data = req.body;
-  if (data.slug) data.slug = slugify(data.slug);
-  const post = await BlogPost.findOneAndUpdate({ slug: req.params.slug }, data, {
-    new: true,
-  });
-  if (!post) return res.status(404).json({ message: "Blog post not found" });
-  res.json(post);
+
+// Blog update with file upload
+
+router.put("/:slug", requireAdmin, upload.single("coverImage"), async (req, res) => {
+  try {
+    const data = req.body;
+    if (req.file) {
+      data.coverImage = `/uploads/${req.file.filename}`;
+    }
+    // tags: if sent as comma string, convert to array
+    if (typeof data.tags === "string") {
+      data.tags = data.tags.split(",").map(t => t.trim()).filter(Boolean);
+    }
+    if (data.slug) data.slug = slugify(data.slug);
+    const post = await BlogPost.findOneAndUpdate({ slug: req.params.slug }, data, {
+      new: true,
+    });
+    if (!post) return res.status(404).json({ message: "Blog post not found" });
+    res.json(post);
+  } catch (err) {
+    console.error("Blog update error:", err);
+    res.status(500).json({ message: err.message || "Failed to update blog" });
+  }
 });
 
 router.delete("/:slug", requireAdmin, async (req, res) => {
@@ -51,3 +100,5 @@ router.delete("/:slug", requireAdmin, async (req, res) => {
 });
 
 export default router;
+
+

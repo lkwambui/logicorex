@@ -1,0 +1,77 @@
+[
+  {
+    "title": "Multi-Tenant School Management System (SaaS)",
+    "category": "School & Education SaaS",
+    "description": "Student enrollment & profiles, Fee invoicing (KSh), M-Pesa / Pesapal integration, Report cards & CBC grading, SMS notifications, Parent portal. Why it sells: Schools need digitization and payment automation. Revenue Model: Monthly subscription per school (e.g., KSh 5k–20k/month)."
+  },
+  {
+    "title": "Church Management & Tithing Platform",
+    "category": "Church & Ministry",
+    "description": "Member management, Online giving (M-Pesa, Pesapal), Event management, Sermon uploads, Financial reporting. Why it sells: Churches want structured giving systems. Revenue Model: Setup fee + monthly hosting."
+  },
+  {
+    "title": "Rental & Property Management System",
+    "category": "Property & Rentals",
+    "description": "Tenant portal, Automated rent reminders, M-Pesa auto-payment reconciliation, Lease tracking, Maintenance requests. Why it sells: Rent tracking + automation = strong value. Revenue Model: Per property subscription."
+  },
+  {
+    "title": "Private Clinic / OPD Lite System",
+    "category": "Healthcare / Clinic Systems",
+    "description": "Patient registration, Consultation notes, Lab requests, Pharmacy inventory, Revenue dashboard. Why it sells: Many small clinics still use paper. Revenue Model: Per-clinic SaaS subscription."
+  },
+  {
+    "title": "Niche Dropshipping Platform (Kenya-Focused)",
+    "category": "Marketplaces",
+    "description": "Build a niche marketplace (Beauty, Agriculture tools, Kids items), Integrated local payments (M-Pesa, Pesapal), Automated WhatsApp order confirmations. Why it sells: Localized platforms outperform generic Shopify clones."
+  },
+  {
+    "title": "Event Ticketing Platform",
+    "category": "Events & Ticketing",
+    "description": "QR ticket generation, Payment gateway, Attendance scanning dashboard. Revenue Model: Percentage per ticket sold."
+  },
+  {
+    "title": "Digital Products Marketplace (Kenyan Creators)",
+    "category": "Marketplaces",
+    "description": "Sell ebooks, templates, courses, Instant file delivery, Creator dashboard. Target: Designers, teachers, content creators."
+  },
+  {
+    "title": "Inventory + POS System (Web-Based)",
+    "category": "SME & Business Tools",
+    "description": "Stock tracking, Barcode support, Sales reports, Payment reconciliation. Target: Small shops, pharmacies, hardware stores."
+  },
+  {
+    "title": "Salon & Beauty Booking System",
+    "category": "SME & Business Tools",
+    "description": "Appointment booking, Staff management, Payment integration, SMS reminders. Target: Salons & barbershops."
+  },
+  {
+    "title": "HR & Payroll System (SME Focus)",
+    "category": "SME & Business Tools",
+    "description": "Employee management, Leave tracking, Payroll calculations, Payslip generation, KRA tax logic. High demand among growing businesses."
+  },
+  {
+    "title": "AI Resume Builder (Localized)",
+    "category": "Modern SaaS",
+    "description": "Kenyan CV format templates, AI-generated summaries, Downloadable PDF. Monetize per download."
+  },
+  {
+    "title": "Online Course Platform (Mini LMS)",
+    "category": "School & Education SaaS",
+    "description": "Course uploads, Video hosting, Payment unlock, Student progress tracking."
+  },
+  {
+    "title": "WhatsApp CRM for SMEs",
+    "category": "SME & Business Tools",
+    "description": "Contact tagging, Conversation tracking, Order management, Broadcast messaging. Very strong for small businesses."
+  },
+  {
+    "title": "SACCO Management System",
+    "category": "Finance & Savings",
+    "description": "Member contributions, Loan applications, Interest calculation, Dividend distribution. High revenue potential if done well."
+  },
+  {
+    "title": "Agriculture Produce Marketplace",
+    "category": "Marketplaces",
+    "description": "Farmers list produce, Buyers place orders, Logistics integration, Bulk pricing. Could align with your parents’ farm branding later."
+  }
+]

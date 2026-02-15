@@ -19,6 +19,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+// import ProtectedRoute from './components/ProtectedRoute';
 import Products from './pages/Products';
 // Services
 import Web from "./pages/services/Web";
@@ -27,6 +28,8 @@ import Graphics from "./pages/services/Graphics";
 import Mobile from "./pages/services/Mobile";
 import Consultancy from "./pages/services/Consultancy";
 import Portfolio from './pages/Portfolio';
+import ToastProvider from './components/ToastProvider';
+import ThemeProvider from './components/ThemeProvider';
 
 function RouteEffects() {
   const location = useLocation();
@@ -69,40 +72,43 @@ function RouteEffects() {
 
 function App() {
   return (
-    <Router>
-      <RouteEffects />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/blog/:slug" element={<BlogDetail />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/payment" element={<PaymentPage />} />
-        <Route path="/academy" element={<AcademyPage />} />
-        <Route path="/academy/courses/:slug" element={<CourseDetailPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/register" element={<AdminRegister />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/create-blog" element={<CreateBlogPage />} />
-        <Route path="/admin/create-course" element={<CreateCoursePage />} />
-        {/* Services */}
-        <Route path="/services/web" element={<Web />} />
-        <Route path="/services/uiux" element={<Uiux />} />
-        <Route path="/services/graphics" element={<Graphics />} />
-        <Route path="/services/mobile" element={<Mobile />} />
-        <Route path="/services/consultancy" element={<Consultancy />} />
-        {/* Products (Protected) */}
-        <Route path="/products" element={<Products />} />
-        {/* 404 Catch-all */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <RouteEffects />
+        <Navbar />
+        <ToastProvider />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/academy" element={<AcademyPage />} />
+          <Route path="/academy/courses/:slug" element={<CourseDetailPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/register" element={<AdminRegister />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/create-blog" element={<CreateBlogPage />} />
+          <Route path="/admin/create-course" element={<CreateCoursePage />} />
+          {/* Services */}
+          <Route path="/services/web" element={<Web />} />
+          <Route path="/services/uiux" element={<Uiux />} />
+          <Route path="/services/graphics" element={<Graphics />} />
+          <Route path="/services/mobile" element={<Mobile />} />
+          <Route path="/services/consultancy" element={<Consultancy />} />
+          {/* Products (Public) */}
+          <Route path="/products" element={<Products />} />
+          {/* 404 Catch-all */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </ThemeProvider>
   );
 }
 

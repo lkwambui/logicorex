@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import blogFallback from '../assets/blogs/blog1.jpg';
+import blogImg1 from '../assets/blogs/blog1.jpg';
+import blogImg2 from '../assets/blogs/blog2.jpg';
+import blogImg3 from '../assets/blogs/blog3.jpg';
+import blogImg4 from '../assets/blogs/blog4.jpg';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
@@ -12,9 +16,14 @@ export default function BlogPage() {
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const getCoverImage = (blog) =>
-    blog.coverImage ||
-    `https://picsum.photos/seed/${encodeURIComponent(blog.slug)}/800/500`;
+  // Use backend coverImage if available, otherwise fallback to local image
+  const blogImages = [blogImg1, blogImg2, blogImg3, blogImg4];
+  const getCoverImage = (blog, idx) => {
+    if (blog.coverImage && blog.coverImage.startsWith("/uploads/")) {
+      return `${API_URL.replace(/\/api$/, "")}${blog.coverImage}`;
+    }
+    return blogImages[idx % blogImages.length];
+  };
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -68,16 +77,17 @@ export default function BlogPage() {
           {currentBlogs.length === 0 ? (
             <p className="text-gray-600">No blog posts available.</p>
           ) : (
-            currentBlogs.map((blog) => (
+            currentBlogs.map((blog, index) => (
               <div
                 key={blog.slug}
                 className="bg-white rounded-lg shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300"
               >
                 <img
-                  src={getCoverImage(blog) || blogFallback}
+                  src={getCoverImage(blog, index) || blogFallback}
                   alt={blog.title}
                   className="w-full h-56 object-cover rounded-t-lg"
                   loading="lazy"
+                  onError={e => { e.target.onerror = null; e.target.src = blogFallback; }}
                 />
                 <div className="p-5">
                   <p className="text-sm text-gray-500 mb-1">

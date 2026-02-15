@@ -9,15 +9,19 @@ import {
   X,
   InfoIcon,
   LogOut,
+  Box,
 } from "lucide-react";
 import logo from "../assets/logo.png";
 import { useState, useEffect } from "react";
+import { useTheme } from "./ThemeProvider";
 
 const Navbar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isAcademyOpen, setIsAcademyOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const [user, setUser] = useState(null);
+  const { theme, toggleTheme } = useTheme ? useTheme() : { theme: "light", toggleTheme: () => {} };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,7 +45,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative z-50 bg-white border-b border-lightGray shadow-sm">
+    <nav className={`relative z-50 border-b border-lightGray shadow-sm ${theme === "dark" ? "bg-gray-900" : "bg-white"}`}>
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-4">
@@ -141,9 +145,22 @@ const Navbar = () => {
           </div>
 
           <Link to="/products" className="flex items-center space-x-1 hover:text-customdarkblue">
-            <MenuIcon className="w-4 h-4" />
+            <Box className="w-4 h-4" />
             <span>Products</span>
           </Link>
+          {/* Dark mode toggle */}
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            className="ml-2 px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-customdarkblue"
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? (
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm7.07 3.93a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.42-1.41l.71-.7a1 1 0 0 1 1.41 0ZM21 11a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1Zm-2.93 7.07a1 1 0 0 1-1.41 0l-.7-.7a1 1 0 1 1 1.41-1.42l.7.71a1 1 0 0 1 0 1.41ZM12 19a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm-7.07-3.93a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.42 1.41l-.71.7a1 1 0 0 1-1.41 0ZM3 13a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2H3Zm2.93-7.07a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 6.63 8.06l-.7-.71a1 1 0 0 1 0-1.41ZM12 7a5 5 0 1 1 0 10A5 5 0 0 1 12 7Z"/></svg>
+            ) : (
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21 12.79A9 9 0 0 1 12.79 3a1 1 0 0 0-1.13 1.13A7 7 0 1 0 19.87 13.92a1 1 0 0 0 1.13-1.13Z"/></svg>
+            )}
+          </button>
           {user ? (
             <div className="flex items-center space-x-4">
               <Link 
@@ -178,9 +195,11 @@ const Navbar = () => {
         </div>
 
         {/* Hamburger for Mobile */}
+        {/* Mobile dark mode toggle */}
         <button
           className="md:hidden text-darkGray"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Open mobile menu"
         >
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
         </button>
@@ -237,6 +256,19 @@ const Navbar = () => {
             )}
           </div>
 
+          {/* Mobile dark mode toggle */}
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            className="mt-2 px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-customdarkblue"
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? (
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm7.07 3.93a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.42-1.41l.71-.7a1 1 0 0 1 1.41 0ZM21 11a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1Zm-2.93 7.07a1 1 0 0 1-1.41 0l-.7-.7a1 1 0 1 1 1.41-1.42l.7.71a1 1 0 0 1 0 1.41ZM12 19a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm-7.07-3.93a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.42 1.41l-.71.7a1 1 0 0 1-1.41 0ZM3 13a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2H3Zm2.93-7.07a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 6.63 8.06l-.7-.71a1 1 0 0 1 0-1.41ZM12 7a5 5 0 1 1 0 10A5 5 0 0 1 12 7Z"/></svg>
+            ) : (
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21 12.79A9 9 0 0 1 12.79 3a1 1 0 0 0-1.13 1.13A7 7 0 1 0 19.87 13.92a1 1 0 0 0 1.13-1.13Z"/></svg>
+            )}
+          </button>
           {user ? (
             <div className="space-y-2">
               <div className="py-1 text-customdarkblue font-medium">

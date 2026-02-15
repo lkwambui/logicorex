@@ -1,135 +1,52 @@
+
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+
+
+import project1Img from '../assets/web/project_1.png';
+import project2Img from '../assets/web/project_2.png';
+import project3Img from '../assets/web/project_3.png';
+import blog1Img from '../assets/blogs/blog1.jpg';
+import blog2Img from '../assets/blogs/blog2.jpg';
+import blog3Img from '../assets/blogs/blog3.jpg';
+import blog4Img from '../assets/blogs/blog4.jpg';
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 
 function Products() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [demoProduct, setDemoProduct] = useState("");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Check for user token for protection
-    const token = localStorage.getItem("userToken");
-    if (!token) {
-      navigate("/login");
-    }
+    fetchProducts();
+    // eslint-disable-next-line
   }, [navigate]);
 
-  const categories = [
-    {
-      name: "School & Education SaaS",
-      products: [
-        {
-          title: "Multi-tenant School Management System",
-          description: "Fees, grades, parent portal, M-Pesa/Pesapal integration.",
-        },
-        {
-          title: "Online Course Platform / Mini LMS",
-          description: "For local tutors or schools to deliver courses online.",
-        },
-        {
-          title: "Exam & Result Management Platform",
-          description: "CBC-focused exam and result tracking for schools.",
-        },
-      ],
-    },
-    {
-      name: "Healthcare / Clinic Systems",
-      products: [
-        {
-          title: "Private Clinic OPD System",
-          description: "Patient registration, consultation, pharmacy, payment.",
-        },
-        {
-          title: "Telemedicine Platform",
-          description: "Consultation booking, video calls, and payment integration.",
-        },
-        {
-          title: "Lab & Test Management System",
-          description: "Results tracking and billing for clinics and labs.",
-        },
-      ],
-    },
-    {
-      name: "SME & Business Tools",
-      products: [
-        {
-          title: "Inventory + POS System",
-          description: "For shops, pharmacies, hardware stores.",
-        },
-        {
-          title: "HR & Payroll System",
-          description: "HR and payroll management for SMEs.",
-        },
-        {
-          title: "Salon / Spa Appointment & Booking System",
-          description: "Online booking and management for salons and spas.",
-        },
-        {
-          title: "WhatsApp CRM",
-          description: "CRM solution for small businesses using WhatsApp.",
-        },
-      ],
-    },
-    {
-      name: "Property & Rentals",
-      products: [
-        {
-          title: "Rental / Property Management System",
-          description: "Tenants, payments, maintenance tracking.",
-        },
-        {
-          title: "Landlord Dashboard",
-          description: "Manage multiple properties and tenants easily.",
-        },
-      ],
-    },
-    {
-      name: "Events & Ticketing",
-      products: [
-        {
-          title: "Event Ticketing Platform",
-          description: "QR tickets, M-Pesa/Pesapal payments for events.",
-        },
-        {
-          title: "Wedding / Party Planner Booking Platform",
-          description: "Book planners and manage events online.",
-        },
-      ],
-    },
-    {
-      name: "Marketplaces",
-      products: [
-        {
-          title: "Niche E-Commerce / Dropshipping Platform",
-          description: "Beauty, Kids, Agro-tools, and more.",
-        },
-        {
-          title: "Digital Products Marketplace",
-          description: "For Kenyan creators: ebooks, templates, courses.",
-        },
-        {
-          title: "Agriculture Produce Marketplace",
-          description: "Connect farmers to buyers for fresh produce.",
-        },
-      ],
-    },
-    {
-      name: "Finance & Savings",
-      products: [
-        {
-          title: "SACCO / Cooperative Management System",
-          description: "Loans, contributions, dividends for cooperatives.",
-        },
-        {
-          title: "Micro-lending Platform",
-          description: "Micro-lending for SMEs and small businesses.",
-        },
-      ],
-    },
-  ];
+  const fetchProducts = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API_URL}/products`);
+      if (res.ok) {
+        setProducts(await res.json());
+      } else {
+        const data = await res.json();
+        setError(data.message || "Failed to fetch products");
+      }
+    } catch (err) {
+      setError(err.message || "Network error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleRequestDemo = (product) => {
     setDemoProduct(product);
@@ -147,6 +64,8 @@ function Products() {
     toast.success("Demo request submitted! We'll contact you soon.");
   };
 
+  if (loading) return <div className="p-8 text-center">Loading products...</div>;
+  if (error) return <div className="p-8 text-center text-red-600">{error}</div>;
   return (
     <div className="min-h-screen bg-gradient-to-br from-customlightblue/10 to-white flex flex-col items-center py-12 px-4">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
@@ -155,19 +74,37 @@ function Products() {
         Explore our suite of modern management systems designed for businesses, schools, and organizations. Each product is crafted for reliability, security, and ease of use. Contact us for demos, pricing, and custom solutions.
       </p>
       <div className="w-full max-w-6xl">
-        {categories.map((cat, idx) => (
-          <section key={cat.name} className="mb-12">
-            <h2 className="text-2xl font-bold text-customdarkblue mb-6 border-b border-customlightblue pb-2">{cat.name}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {cat.products.map((prod, pidx) => (
-                <div key={prod.title} className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center hover:shadow-2xl transition">
-                  <div className="bg-customlightblue/20 rounded-full p-4 mb-4">
-                    <svg className="w-10 h-10 text-customdarkblue" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" />
-                    </svg>
-                  </div>
+        {products.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((prod) => {
+              let imageSrc = project1Img;
+              const title = prod.title ? prod.title.toLowerCase() : "";
+              const cat = prod.category ? prod.category.toLowerCase() : "";
+              if (title.includes("school") || cat.includes("school")) imageSrc = project1Img;
+              else if (title.includes("church")) imageSrc = blog1Img;
+              else if (title.includes("property") || title.includes("rental") || cat.includes("property")) imageSrc = blog2Img;
+              else if (title.includes("clinic") || title.includes("opd") || cat.includes("clinic")) imageSrc = project2Img;
+              else if (title.includes("dropshipping") || title.includes("marketplace") || cat.includes("market")) imageSrc = blog4Img;
+              else if (title.includes("event") || cat.includes("event")) imageSrc = blog3Img;
+              else if (title.includes("digital product")) imageSrc = blog4Img;
+              else if (title.includes("inventory") || title.includes("pos")) imageSrc = project3Img;
+              else if (title.includes("salon") || title.includes("beauty")) imageSrc = blog2Img;
+              else if (title.includes("hr") || title.includes("payroll")) imageSrc = blog1Img;
+              else if (title.includes("resume")) imageSrc = blog1Img;
+              else if (title.includes("course") || title.includes("lms")) imageSrc = project1Img;
+              else if (title.includes("whatsapp")) imageSrc = blog3Img;
+              else if (title.includes("sacco") || cat.includes("finance")) imageSrc = blog1Img;
+              else if (title.includes("agriculture")) imageSrc = blog4Img;
+              return (
+                <div key={prod._id} className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center hover:shadow-2xl transition">
+                  <img
+                    src={imageSrc}
+                    alt={prod.title + ' image'}
+                    className="w-24 h-24 object-cover rounded-full mb-4 border-2 border-customlightblue bg-white"
+                    loading="lazy"
+                  />
                   <h3 className="text-lg font-semibold mb-2 text-center">{prod.title}</h3>
+                  <p className="text-gray-600 mb-2 text-center">{prod.category}</p>
                   <p className="text-gray-600 mb-4 text-center">{prod.description}</p>
                   <button
                     className="bg-customdarkblue text-white px-6 py-2 rounded hover:bg-customlightblue transition"
@@ -176,10 +113,12 @@ function Products() {
                     Request Demo
                   </button>
                 </div>
-              ))}
-            </div>
-          </section>
-        ))}
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-gray-600">No products yet.</p>
+        )}
       </div>
       {/* Modal for Request Demo */}
       {showModal && (

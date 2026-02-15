@@ -65,13 +65,11 @@ export default function CourseDetailPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-        {course.thumbnail && (
-          <img
-            src={course.thumbnail}
-            alt={course.title}
-            className="w-full h-64 object-cover"
-          />
-        )}
+        <img
+          src={course.thumbnail || require('../assets/web/project_2.png')}
+          alt={course.title}
+          className="w-full h-64 object-cover"
+        />
         <div className="p-8">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-sm font-semibold text-customdarkblue bg-blue-50 px-4 py-2 rounded-full">

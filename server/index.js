@@ -42,6 +42,11 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+
+// Serve uploaded images
+import path from "path";
+app.use("/uploads", express.static(path.join(process.cwd(), "server/uploads")));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userAuthRoutes);
 app.use("/api/blogs", blogRoutes);

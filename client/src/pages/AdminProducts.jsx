@@ -11,6 +11,7 @@ export default function AdminProducts() {
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchProducts();
@@ -18,17 +19,24 @@ export default function AdminProducts() {
 
   const fetchProducts = async () => {
     setLoading(true);
+    setError("");
     try {
-      // TODO: Replace with real API endpoint
       const res = await fetch(`${API_URL}/products`);
-      if (res.ok) setProducts(await res.json());
+      if (res.ok) {
+        setProducts(await res.json());
+      } else {
+        const data = await res.json();
+        setError(data.message || "Failed to fetch products");
+      }
     } catch (err) {
-      // Handle error
+      setError(err.message || "Network error");
     } finally {
       setLoading(false);
     }
   };
 
+  if (loading) return <div className="p-8 text-center">Loading products...</div>;
+  if (error) return <div className="p-8 text-center text-red-600">{error}</div>;
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
