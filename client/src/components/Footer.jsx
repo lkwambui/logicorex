@@ -103,13 +103,28 @@ const Footer = () => {
                 <h4 className="font-semibold text-darkGray">LogicoreX Academy Resources</h4>
               </div>
 
-              <ul className="space-y-1 opacity-80 pointer-events-none">
-                <li><span className="block">Design & Development</span></li>
-                <li><span className="block">UI/UX Design</span></li>
-                <li><span className="block">Web Design</span></li>
-                <li><span className="block">Frontend Web Development</span></li>
-                <li><span className="block">React for Beginners</span></li>
-                <li><span className="block">Graphics Design</span></li>
+              <ul className="space-y-1">
+                <li>
+                  <Link to="/academy" className="block hover:text-customdarkblue font-semibold">All Courses</Link>
+                </li>
+                <li>
+                  <Link to="/academy?category=web-design" className="block hover:text-customdarkblue">Web Design & Development</Link>
+                </li>
+                <li>
+                  <Link to="/academy?category=uiux" className="block hover:text-customdarkblue">UI/UX Design</Link>
+                </li>
+                <li>
+                  <Link to="/academy?category=frontend" className="block hover:text-customdarkblue">Frontend Web Development</Link>
+                </li>
+                <li>
+                  <Link to="/academy?category=react" className="block hover:text-customdarkblue">React for Beginners</Link>
+                </li>
+                <li>
+                  <Link to="/academy?category=graphics" className="block hover:text-customdarkblue">Graphics Design</Link>
+                </li>
+                <li>
+                  <Link to="/academy?category=full-stack" className="block hover:text-customdarkblue">Full Stack Web Development</Link>
+                </li>
               </ul>
             </div>
 
@@ -117,7 +132,7 @@ const Footer = () => {
             <div className="text-left">
               <h4 className="font-semibold mb-2 text-darkGray">Logicorex for</h4>
               <ul className="space-y-1">
-                <li><Link to="/contact" className="block hover:text-customdarkblue">Students</Link></li>
+                <li><Link to="/login" className="block hover:text-customdarkblue">Students</Link></li>
                 <li><Link to="/services/web" className="block hover:text-customdarkblue">Business</Link></li>
                 <li><Link to="/contact" className="block hover:text-customdarkblue">Partnerships</Link></li>
               </ul>

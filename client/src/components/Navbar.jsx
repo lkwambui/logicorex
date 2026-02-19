@@ -49,7 +49,9 @@ const Navbar = () => {
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-4">
-          <img src={logo} alt="Logo" className="h-8 w-auto" />
+          <Link to="/" aria-label="Go to home">
+            <img src={logo} alt="Logo" className="h-8 w-auto" />
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
@@ -144,23 +146,7 @@ const Navbar = () => {
             )}
           </div>
 
-          <Link to="/products" className="flex items-center space-x-1 hover:text-customdarkblue">
-            <Box className="w-4 h-4" />
-            <span>Products</span>
-          </Link>
-          {/* Dark mode toggle */}
-          <button
-            onClick={toggleTheme}
-            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            className="ml-2 px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-customdarkblue"
-            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {theme === "dark" ? (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm7.07 3.93a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.42-1.41l.71-.7a1 1 0 0 1 1.41 0ZM21 11a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1Zm-2.93 7.07a1 1 0 0 1-1.41 0l-.7-.7a1 1 0 1 1 1.41-1.42l.7.71a1 1 0 0 1 0 1.41ZM12 19a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm-7.07-3.93a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.42 1.41l-.71.7a1 1 0 0 1-1.41 0ZM3 13a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2H3Zm2.93-7.07a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 6.63 8.06l-.7-.71a1 1 0 0 1 0-1.41ZM12 7a5 5 0 1 1 0 10A5 5 0 0 1 12 7Z"/></svg>
-            ) : (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21 12.79A9 9 0 0 1 12.79 3a1 1 0 0 0-1.13 1.13A7 7 0 1 0 19.87 13.92a1 1 0 0 0 1.13-1.13Z"/></svg>
-            )}
-          </button>
+          {/* Dark mode toggle removed */}
           {user ? (
             <div className="flex items-center space-x-4">
               <Link 
@@ -208,12 +194,11 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2 text-darkGray font-medium">
-                    <Link to="/products" className="block py-1 hover:text-customdarkblue">Products</Link>
           <Link to="/" className="block py-1 hover:text-customdarkblue">Home</Link>
           <Link to="/about" className="block py-1 hover:text-customdarkblue">About</Link>
           <Link to="/blog" className="block py-1 hover:text-customdarkblue">Blog</Link>
           <Link to="/contact" className="block py-1 hover:text-customdarkblue">Contact</Link>
-
+          <Link to="/products" className="block py-1 hover:text-customdarkblue">Products</Link>
           {/* Services Mobile Dropdown */}
           <div>
             <button
@@ -255,20 +240,6 @@ const Navbar = () => {
               </div>
             )}
           </div>
-
-          {/* Mobile dark mode toggle */}
-          <button
-            onClick={toggleTheme}
-            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            className="mt-2 px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-customdarkblue"
-            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {theme === "dark" ? (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm7.07 3.93a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.42-1.41l.71-.7a1 1 0 0 1 1.41 0ZM21 11a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1Zm-2.93 7.07a1 1 0 0 1-1.41 0l-.7-.7a1 1 0 1 1 1.41-1.42l.7.71a1 1 0 0 1 0 1.41ZM12 19a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm-7.07-3.93a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.42 1.41l-.71.7a1 1 0 0 1-1.41 0ZM3 13a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2H3Zm2.93-7.07a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 6.63 8.06l-.7-.71a1 1 0 0 1 0-1.41ZM12 7a5 5 0 1 1 0 10A5 5 0 0 1 12 7Z"/></svg>
-            ) : (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21 12.79A9 9 0 0 1 12.79 3a1 1 0 0 0-1.13 1.13A7 7 0 1 0 19.87 13.92a1 1 0 0 0 1.13-1.13Z"/></svg>
-            )}
-          </button>
           {user ? (
             <div className="space-y-2">
               <div className="py-1 text-customdarkblue font-medium">
@@ -289,13 +260,14 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/signup"
-                className="block bg-customdarkblue text-white px-4 py-1.5 rounded hover:bg-customlightblue transition text-center"
+                className="block bg-customdarkblue text-white px-3 py-1 rounded hover:bg-customlightblue transition text-center text-sm md:px-4 md:py-1.5 md:text-base"
               >
                 Signup
               </Link>
             </>
           )}
-          <Link to="/products" className="block py-1 hover:text-customdarkblue">Products</Link>
+        
+          {/* Mobile dark mode toggle removed */}
         </div>
       )}
     </nav>
