@@ -15,64 +15,64 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-12">
         <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-20 space-y-10 lg:space-y-0">
           {/* Left Section */}
-          <div className="flex-1 lg:max-w-xs space-y-5 text-left">
-            <img
-              src={Logo}
-              alt="LogicoreX Logo"
-              className="h-12 sm:h-14 lg:h-16 w-auto"
-            />
+                <div className="flex-1 lg:max-w-xs space-y-5 text-left">
+                <img
+                  src={Logo}
+                  alt="LogicoreX Logo"
+                  className="h-12 sm:h-14 lg:h-16 w-auto"
+                />
 
-            <div className="flex space-x-4 text-xl text-darkGray">
-              <a
-                href="https://instagram.com/lucy_kamau_designer_and_dev/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LogicoreX on Instagram"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="https://tiktok.com/@lucykamau_designdev"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LogicoreX on TikTok"
-              >
-                <FaTiktok />
-              </a>
-              <a
-                href="https://linkedin.com/in/lucy-kamau-87bb75209/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LogicoreX on LinkedIn"
-              >
-                <FaLinkedin />
-              </a>
-              <a
-                href="https://github.com/lkwambui"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LogicoreX on GitHub"
-              >
-                <FaGithub />
-              </a>
-              <a
-                href="https://wa.me/254799656264"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Chat with LogicoreX on WhatsApp"
-              >
-                <FaWhatsapp />
-              </a>
-            </div>
-            <div className="text-xs space-y-1">
-              <Link to="/about" className="block hover:text-customdarkblue text-left">
-                The Spark Behind Innovation
-              </Link>
-              <p>© 2025 Logicorex, Ltd.</p>
-            </div>
-          </div>
+                <div className="flex space-x-4 text-xl text-darkGray">
+                  <a
+                  href="https://instagram.com/lucy_kamau_designer_and_dev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LogicoreX on Instagram"
+                  >
+                  <FaInstagram />
+                  </a>
+                  <a
+                  href="https://tiktok.com/@lucykamau_designdev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LogicoreX on TikTok"
+                  >
+                  <FaTiktok />
+                  </a>
+                  <a
+                  href="https://linkedin.com/in/lucy-kamau-87bb75209/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LogicoreX on LinkedIn"
+                  >
+                  <FaLinkedin />
+                  </a>
+                  <a
+                  href="https://github.com/lkwambui"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LogicoreX on GitHub"
+                  >
+                  <FaGithub />
+                  </a>
+                  <a
+                  href="https://wa.me/254799656264"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat with LogicoreX on WhatsApp"
+                  >
+                  <FaWhatsapp />
+                  </a>
+                </div>
+                <div className="text-xs space-y-1">
+                  <Link to="/about" className="block hover:text-customdarkblue text-left">
+                  The Spark Behind Innovation
+                  </Link>
+                  <p>© {new Date().getFullYear()} Logicorex, Ltd.</p>
+                </div>
+                </div>
 
-          {/* Right Section: Links */}
+                {/* Right Section: Links */}
           <div className="flex-[3] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
             {/* Company */}
             <div className="text-left">
@@ -82,6 +82,7 @@ const Footer = () => {
                 <li><Link to="/about" className="block hover:text-customdarkblue">About</Link></li>
                 <li><Link to="/blog" className="block hover:text-customdarkblue">Blog</Link></li>
                 <li><Link to="/contact" className="block hover:text-customdarkblue">Contact</Link></li>
+                <li><Link to="/products" className="block hover:text-customdarkblue">Products</Link></li>
               </ul>
             </div>
 

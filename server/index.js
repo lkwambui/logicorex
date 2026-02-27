@@ -25,8 +25,18 @@ connectDB(); // 🔗 Connect to MongoDB
 const app = express();
 
 // CORS configuration
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const corsOptions = {
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 };
 
@@ -45,7 +55,7 @@ app.get("/api/health", (req, res) => {
 
 // Serve uploaded images
 import path from "path";
-app.use("/uploads", express.static(path.join(process.cwd(), "server/uploads")));
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userAuthRoutes);

@@ -13,7 +13,7 @@ import blog2Img from '../assets/blogs/blog2.jpg';
 import blog3Img from '../assets/blogs/blog3.jpg';
 import blog4Img from '../assets/blogs/blog4.jpg';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+import { API_URL } from "../config/api";
 
 
 function Products() {

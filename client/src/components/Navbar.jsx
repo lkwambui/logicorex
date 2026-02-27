@@ -54,27 +54,28 @@ const Navbar = () => {
           </Link>
         </div>
 
+
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6 text-darkGray font-medium">
-
           <Link to="/" className="flex items-center space-x-1 hover:text-customdarkblue">
             <Home className="w-4 h-4" />
             <span>Home</span>
           </Link>
-
           <Link to="/about" className="flex items-center space-x-1 hover:text-customdarkblue">
             <InfoIcon className="w-4 h-4" />
             <span>About</span>
           </Link>
-
           <Link to="/blog" className="flex items-center space-x-1 hover:text-customdarkblue">
             <MenuIcon className="w-4 h-4" />
             <span>Blog</span>
           </Link>
-
           <Link to="/contact" className="flex items-center space-x-1 hover:text-customdarkblue">
             <Phone className="w-4 h-4" />
             <span>Contact</span>
+          </Link>
+          <Link to="/products" className="flex items-center space-x-1 hover:text-customdarkblue">
+            <Box className="w-4 h-4" />
+            <span>Products</span>
           </Link>
 
           {/* Services Dropdown */}
